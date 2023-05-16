@@ -49,6 +49,9 @@ class ScoutMessenger {
         status_pub_ = node_->create_publisher<scout_msgs::msg::ScoutStatus>(
           "/scout_status", 10);
 
+    bms_status_pub_ = node_->create_publisher<scout_msgs::msg::ScoutBmsStatus>(
+      "/scout_bms_status", 10);
+
         // cmd subscriber
     motion_cmd_sub_ = node_->create_subscription<geometry_msgs::msg::Twist>(
             "/cmd_vel", 5,
