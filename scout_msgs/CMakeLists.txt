@@ -18,6 +18,7 @@ find_package(std_msgs REQUIRED)
 
 set(msg_file
 "msg/ScoutActuatorState.msg"
+"msg/ScoutBmsStatus.msg"
 "msg/ScoutLightCmd.msg"
 "msg/ScoutLightState.msg"
 "msg/ScoutRCState.msg"
