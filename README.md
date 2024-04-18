@@ -44,3 +44,19 @@ This repository contains minimal packages to control the scout robot using ROS.
     ```
     $ ros2 run teleop_twist_keyboard teleop_twist_keyboard
     ```
+
+## To run Scout2 on Gazebo 
+Launch the launch file `display_scout.launch.py`
+
+```
+ros2 launch scout_description display_scout.launch.py
+```
+To run `joint_state_publisher_gui` , Run
+``` ros2 run joint_state_publisher_gui joint_state_publisher_gui```
+
+To run generic Keyboard Teleop, Run
+```ros2 run teleop_twist_keyboard teleop_twist_keyboard```
+
+
+[Screencast from 04-18-2024 10:00:27 AM.webm](https://github.com/agilexrobotics/scout_ros2/assets/5939058/a681a1df-0201-48c0-857d-cb79fc09d97d)
+
