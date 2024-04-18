@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="scout">
+
+    <xacro:include filename="scout_v2.xacro" />
+    <xacro:include filename="gazebo_control.xacro" />
+
+</robot>
