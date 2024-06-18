@@ -56,6 +56,7 @@ ros2 launch scout_description display_scout.launch.py
 To run generic Keyboard Teleop, Run
 ```ros2 run teleop_twist_keyboard teleop_twist_keyboard```
 
+[scout_ros2_OS1.webm](https://github.com/arif09/scout_ros2/assets/5939058/4b19ce6f-120d-4e88-8862-61092535024f)
 
-[Screencast from 04-18-2024 10:00:27 AM.webm](https://github.com/agilexrobotics/scout_ros2/assets/5939058/a681a1df-0201-48c0-857d-cb79fc09d97d)
+ 
 
