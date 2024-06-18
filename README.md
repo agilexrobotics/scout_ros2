@@ -51,8 +51,7 @@ Launch the launch file `display_scout.launch.py`
 ```
 ros2 launch scout_description display_scout.launch.py
 ```
-To run `joint_state_publisher_gui` , Run
-``` ros2 run joint_state_publisher_gui joint_state_publisher_gui```
+
 
 To run generic Keyboard Teleop, Run
 ```ros2 run teleop_twist_keyboard teleop_twist_keyboard```

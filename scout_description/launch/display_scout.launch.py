@@ -4,6 +4,8 @@ import launch_ros
 
 from ament_index_python.packages import get_package_share_directory
 
+from math import pi
+
 from launch.conditions import IfCondition, UnlessCondition
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, ExecuteProcess
@@ -62,6 +64,32 @@ def generate_launch_description():
       
     )
 
+    joint_state_publisher_node = launch_ros.actions.Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        parameters=[{'use_sim_time': True}],
+    )
+
+    pointcloud_to_laserscan_node = Node(
+		package='pointcloud_to_laserscan',
+		executable='pointcloud_to_laserscan_node',
+		name='pointcloud_to_laserscan_node',
+		remappings=[('cloud_in', "/ray/pointcloud2"),
+					('scan', "/scan")],
+		parameters=[{
+			'transform_tolerance': 0.05,
+			'min_height': 0.0,
+			'max_height': 1.0,
+			'angle_min': -pi,
+			'angle_max': pi,
+			'angle_increment': pi / 180.0 / 2.0,
+			'scan_time': 1/10, # 10Hz
+			'range_min': 0.1,
+			'range_max': 100.0,
+			'use_inf': True,
+		}],
+	)
 
 
     gazebo = IncludeLaunchDescription(
@@ -89,8 +117,10 @@ def generate_launch_description():
         launch.actions.LogInfo(msg=launch.substitutions.LaunchConfiguration('use_sim_time')),
 
             robot_state_publisher_node,
+            joint_state_publisher_node,
             rviz_node,
             gazebo,
             gazebo_spawn_robot,
+            pointcloud_to_laserscan_node,
 
     ])
