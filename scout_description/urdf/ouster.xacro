@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <joint name="laser_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="laser_frame"/>
+        <origin xyz="0 0 0.12" rpy="0 0 0"/>
+    </joint>
+
+    <link name="laser_frame">
+      <inertial>
+        <mass value="0.425"/>
+        <origin xyz="0 0 0.003675" rpy="0 0 0" />
+        <inertia ixx="0.000308429" ixy="0" ixz="0"
+                 iyy="0.000308429" iyz="0" izz="0.00034589"/>
+      </inertial>
+      <collision name="lidar_collision">
+        <origin xyz="0 0 0.03675" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.04350" length="0.07350"/>
+        </geometry>
+      </collision>
+      <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.23"/>
+            </geometry>
+         
+      </visual>
+
+      <visual name="lidar_visual">
+        <origin xyz="0 0 0.10" rpy="0 0 0"/>
+        <geometry>
+           <mesh filename="file://$(find scout_description)/meshes/os1_64.stl" />
+        </geometry>
+      </visual>
+    </link>
+
+
+
+    <gazebo reference="laser_frame">
+        <material>Gazebo/DarkGrey</material>
+
+        <sensor name="sensor_ray" type="ray">
+             <pose> 0 0 0 0 0 0 </pose>
+            <visualize>false</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+            <scan>
+              <horizontal>
+                <samples>360</samples>
+                <resolution>1.0</resolution>
+                 <min_angle>-3.14</min_angle>
+                <max_angle>3.14</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>100</samples>
+                <resolution>1.0</resolution>
+                <min_angle>-0.28</min_angle>
+                <max_angle>0.28</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.05</min>
+              <max>15.0</max>
+            </range>
+          </ray>
+          <always_on>true</always_on>
+          <update_rate>1.0</update_rate>
+            <plugin name="pc2" filename="libgazebo_ros_ray_sensor.so">
+                 <ros>
+                    <namespace>/ray</namespace>
+                    <remapping>~/out:=pointcloud2</remapping>
+                </ros>
+                <output_type>sensor_msgs/PointCloud2</output_type>
+                <frame_name>laser_frame</frame_name>
+            </plugin>
+             <!-- <plugin name="laserscan" filename="libgazebo_ros_ray_sensor.so">
+                 <ros>
+                    <namespace>/ray</namespace>
+                    <remapping>~/out:=laserscan</remapping>
+                </ros>
+                <output_type>sensor_msgs/LaserScan</output_type>
+                <frame_name>laser_frame</frame_name>
+            </plugin> -->
+        </sensor>
+    </gazebo>
+
+
+
+</robot>

@@ -9,7 +9,9 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://scout_description/meshes/scout_v2/base_link.dae"/>
+        <!-- <mesh filename="package://scout_description/meshes/scout_v2/base_link.dae"/> -->
+        <mesh filename="file:///home/arif/ros2_ws/src/scout_ros2/scout_description/meshes/base_link.dae"/>
+
       </geometry>
     </visual>
     <collision>
@@ -26,7 +28,7 @@
     </collision>
   </link>
   <link name="base_footprint"/>
-  <joint name="base_footprint_joint" type="fixed">
+  <joint name="base_footprint_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0 0 -0.23479"/>
     <parent link="base_link"/>
     <child link="base_footprint"/>
@@ -52,7 +54,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/scout_v2/wheel_type1.dae"/>
+        <mesh filename="file:///home/arif/ros2_ws/src/scout_ros2/scout_description/meshes/wheel_type1.dae"/>
       </geometry>
     </visual>
     <collision>
@@ -62,7 +64,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="front_right_wheel" type="fixed">
+  <joint name="front_right_wheel" type="continuous">
     <parent link="base_link"/>
     <child link="front_right_wheel_link"/>
     <origin rpy="3.14 0 0" xyz="0.249 -0.29153 -0.0702"/>
@@ -77,7 +79,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/scout_v2/wheel_type2.dae"/>
+        <mesh filename="file:///home/arif/ros2_ws/src/scout_ros2/scout_description/meshes/wheel_type2.dae"/>
       </geometry>
     </visual>
     <collision>
@@ -87,7 +89,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="front_left_wheel" type="fixed">
+  <joint name="front_left_wheel" type="continuous">
     <parent link="base_link"/>
     <child link="front_left_wheel_link"/>
     <origin rpy="0 0 0" xyz="0.249 0.29153 -0.0702"/>
@@ -102,7 +104,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/scout_v2/wheel_type1.dae"/>
+        <mesh filename="file:///home/arif/ros2_ws/src/scout_ros2/scout_description/meshes/wheel_type1.dae"/>
       </geometry>
     </visual>
     <collision>
@@ -112,7 +114,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="rear_left_wheel" type="fixed">
+  <joint name="rear_left_wheel" type="continuous">
     <parent link="base_link"/>
     <child link="rear_left_wheel_link"/>
     <origin rpy="0 0 0" xyz="-0.249 0.29153 -0.0702"/>
@@ -127,7 +129,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/scout_v2/wheel_type2.dae"/>
+        <mesh filename="file:///home/arif/ros2_ws/src/scout_ros2/scout_description/meshes/wheel_type2.dae"/>
       </geometry>
     </visual>
     <collision>
@@ -137,7 +139,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="rear_right_wheel" type="fixed">
+  <joint name="rear_right_wheel" type="continuous">
     <parent link="base_link"/>
     <child link="rear_right_wheel_link"/>
     <origin rpy="3.14 0 0" xyz="-0.249 -0.29153 -0.0702"/>
