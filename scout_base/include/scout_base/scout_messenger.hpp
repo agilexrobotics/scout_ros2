@@ -22,6 +22,7 @@
 
 #include "scout_msgs/msg/scout_status.hpp"
 #include "scout_msgs/msg/scout_light_cmd.hpp"
+#include "scout_msgs/msg/scout_rc_state.hpp"
 
 #include "ugv_sdk/mobile_robot/scout_robot.hpp"
 
@@ -47,6 +48,8 @@ class ScoutMessenger {
         node_->create_publisher<nav_msgs::msg::Odometry>(odom_topic_name_, 50);
     status_pub_ = node_->create_publisher<scout_msgs::msg::ScoutStatus>(
         "/scout_status", 10);
+    rc_state_pub_ = node_->create_publisher<scout_msgs::msg::ScoutRCState>(
+        "/rc_status", 10);
 
     // cmd subscriber
     motion_cmd_sub_ = node_->create_subscription<geometry_msgs::msg::Twist>(
@@ -76,6 +79,7 @@ class ScoutMessenger {
 
     // publish scout state message
     scout_msgs::msg::ScoutStatus status_msg;
+    scout_msgs::msg::ScoutRCState rc_status_msg;
 
     status_msg.header.stamp = current_time_;
 
@@ -86,6 +90,19 @@ class ScoutMessenger {
     status_msg.control_mode = state.system_state.control_mode;
     status_msg.error_code = state.system_state.error_code;
     status_msg.battery_voltage = state.system_state.battery_voltage;
+
+    rc_status_msg.stick_left_h =   state.rc_state.stick_left_h;
+    rc_status_msg.stick_left_v =   state.rc_state.stick_left_v;
+    rc_status_msg.stick_right_h =   state.rc_state.stick_right_h;
+    rc_status_msg.stick_right_v =   state.rc_state.stick_right_v;
+
+    rc_status_msg.swa = state.rc_state.swa;
+    rc_status_msg.swb = state.rc_state.swb;
+    rc_status_msg.swc = state.rc_state.swc;
+    rc_status_msg.swd = state.rc_state.swd;
+
+    rc_status_msg.var_a = state.rc_state.var_a;
+    
 
     auto actuator = scout_->GetActuatorState();
 
@@ -120,7 +137,9 @@ class ScoutMessenger {
     status_msg.rear_light_state.mode = state.light_state.rear_light.mode;
     status_msg.rear_light_state.custom_value =
         state.light_state.rear_light.custom_value;
+    
     status_pub_->publish(status_msg);
+    rc_state_pub_->publish(rc_status_msg);
 
     // publish odometry and tf
     PublishOdometryToROS(state.motion_state, dt);
@@ -145,10 +164,13 @@ class ScoutMessenger {
 
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
   rclcpp::Publisher<scout_msgs::msg::ScoutStatus>::SharedPtr status_pub_;
+  rclcpp::Publisher<scout_msgs::msg::ScoutRCState>::SharedPtr rc_state_pub_;
 
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr motion_cmd_sub_;
   rclcpp::Subscription<scout_msgs::msg::ScoutLightCmd>::SharedPtr
       light_cmd_sub_;
+
+  
 
   std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 
