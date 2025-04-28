@@ -12,7 +12,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    model_name = 'scout_v2.xacro'
+    model_name = 'scout2.urdf.xacro'
     # model_path = os.path.join(get_package_share_directory('scout_description'), "urdf", model_name)
     # print(model_path)
     robot_description_content = Command([
